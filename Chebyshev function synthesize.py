@@ -4,7 +4,7 @@ import sympy
 
 
 RL = 25     # 回波损耗
-w0 = [-1.3174, 0.2673]  # 传输零点
+w0 = [-1.3174, 1.3673]  # 传输零点
 Nfz = len(w0)           # 零点个数
 N = 5       # 阶数
 w0 += [np.inf] * (N - Nfz)  # 补齐非零点
@@ -49,10 +49,10 @@ Es = np.poly(Eroots)
 F = np.poly1d(Fs)
 P = np.poly1d(Ps)
 En = np.poly1d(Es)
-wr = np.linspace(-4, 4, 1000)
-wr *= 1j
-S11 = 20 * np.log10(np.abs(F(wr) / En(wr)) / Er)
-S21 = 20 * np.log10(np.abs(P(wr) / En(wr)) / E)
+wr = np.arange(-4, 4, 0.01)
+wx = wr * 1j
+S11 = 20 * np.log10(np.abs(F(wx) / En(wx)) / Er)
+S21 = 20 * np.log10(np.abs(P(wx) / En(wx)) / E)
 # 绘图
 plt.plot(wr, S11, label='S11')
 plt.plot(wr, S21, label='S21')
